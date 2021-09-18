@@ -1,0 +1,104 @@
+ARG BASE_IMAGE=localhost/doc-hub/gitbook/builder:latest
+FROM ${BASE_IMAGE}
+
+#--------------------------------------
+# INSTALL DOCKER
+#--------------------------------------
+RUN apt-get update && \
+    apt-get -y install apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg2 \
+        software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+    add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+        $(lsb_release -cs) \
+        stable" && \
+    apt-get update && \
+    apt-get -y install docker-ce
+
+#--------------------------------------
+# INSTALL NPM DEPENDENCIES
+#--------------------------------------
+
+# Copy package.json
+COPY scripts/*.json /kit/scripts/
+COPY app/*.json /kit/app/
+COPY plugins/gitbook/*.json /kit/plugins/gitbook/
+COPY plugins/gitbook/gitbook-plugin-theme-splunk/*.json \ 
+  /kit/plugins/gitbook/gitbook-plugin-theme-splunk/
+COPY plugins/gitbook/gitbook-plugin-splunk-highlight/*.json \ 
+  /kit/plugins/gitbook/gitbook-plugin-splunk-highlight/
+
+# Build npm dependencies
+RUN cd /kit/app && npm install && \
+    cd /kit/scripts && npm install && \
+    cd /kit/plugins/gitbook/gitbook-plugin-theme-splunk && npm install && \
+    cd /kit/plugins/gitbook/gitbook-plugin-splunk-highlight && npm install && \
+    cd /kit/plugins/gitbook/ && npm install
+
+#--------------------------------------
+# COPY SCRIPTS
+#--------------------------------------
+
+# Copy dummy sub app files
+COPY app_sub /kit/app_sub/
+
+# Copy app files
+COPY app/ /kit/app/
+
+# Copy script files
+COPY scripts/ /kit/scripts/
+
+# Copy script files
+COPY plugins/ /kit/plugins/
+
+#--------------------------------------
+# BUILD CSS FOR THEME
+#--------------------------------------
+RUN cd /kit/plugins/gitbook/gitbook-plugin-theme-splunk && npm run build
+
+#--------------------------------------
+# COPY FILES FOR PUBLISH
+#--------------------------------------
+COPY dockerfiles/Dockerfile.publish /kit/Dockerfile
+COPY .dockerignore /kit/.dockerignore
+ARG SDK_VERSION=development
+RUN echo ${SDK_VERSION} > /kit/SDK_VERSION
+
+#--------------------------------------
+# COPY FILES FOR TEST DOC
+#--------------------------------------
+COPY tests /test_doc
+
+#--------------------------------------
+# Check Standard JS
+#--------------------------------------
+RUN cd /kit/app && standard && \
+  cd /kit/plugins/gitbook/gitbook-plugin-splunk-highlight && standard && \
+  cd /kit/plugins/gitbook/gitbook-plugin-theme-splunk && standard && \
+  cd /kit/scripts && standard
+
+#--------------------------------------
+# MOUNT & RUN
+#--------------------------------------
+
+# Mount volume for contents
+VOLUME /mount
+
+# EXPOSE port 4000
+ENV PORT=4000
+EXPOSE $PORT
+
+ARG WORKSHOP_BASE_IMAGE=node:10-alpine
+
+# Define Environment Variables
+ENV WORKSHOP_BASE_IMAGE=${WORKSHOP_BASE_IMAGE}
+ENV PATH_WORKSHOP=/mount
+ENV DOCKER_PASSWORD=
+ENV DOCKER_USERNAME=
+ENV WORKSHOP_PASSWORD=
+ENV WORKSHOP_USERNAME=
+
+ENTRYPOINT ["node", "/kit/scripts/launch.js"]

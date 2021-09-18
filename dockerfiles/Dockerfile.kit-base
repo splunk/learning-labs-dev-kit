@@ -1,0 +1,31 @@
+ARG NODE_IMAGE=node:10
+ARG GITBOOK_VER=4.0.0
+FROM ${NODE_IMAGE}
+
+ENV TZ=America/Los_Angeles
+
+#--------------------------------------
+# SET TIMEZONE
+#--------------------------------------
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
+
+#--------------------------------------
+# DOWNLOAD GITBOOK AND PATCH
+#--------------------------------------
+RUN git clone https://github.com/GitbookIO/gitbook.git /splunk-gitbook
+COPY patch/gitbook.patch /tmp/gitbook.patch
+RUN cd /splunk-gitbook && git apply /tmp/gitbook.patch
+
+#--------------------------------------
+# INSTALL GITBOOK
+#--------------------------------------
+
+# Install Gitbook CLI
+RUN npm install -g gitbook-cli standard@14.3.1
+
+# Build NPM dependencies
+RUN cd /splunk-gitbook && npm install -d
+
+# Build NPM dependencies and create alias
+RUN gitbook alias /splunk-gitbook ${GITBOOK_VER}

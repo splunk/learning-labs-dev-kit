@@ -1,0 +1,39 @@
+ARG WORKSHOP_BASE_IMAGE=node:10-alpine
+FROM ${WORKSHOP_BASE_IMAGE}
+ARG EXTRA_PKG
+
+# Get latest git && openssh-keygen
+RUN apk update \
+    && apk add \
+    git \
+    $EXTRA_PKG \
+    openssh-keygen \
+    python \
+    py-pip \
+    && rm -rf /var/cache/apk/*
+
+# Update npm dependencies
+COPY app/*.json /doc/app/
+COPY app_sub/*.json /doc/app_sub/
+RUN cd /doc/app && npm install -f
+RUN cd /doc/app_sub && npm install -f
+
+# Copy scripts
+COPY plugins/gitbook/book.json /doc/app/config.json
+COPY static /doc/static
+COPY app /doc/app
+COPY app_sub /doc/app_sub
+
+# Custom build script to set up environment
+RUN /bin/sh /doc/app_sub/build_script.sh
+
+# Copy resources
+COPY resources /doc/resources
+
+# Copy version
+COPY SDK_VERSION /doc/SDK_VERSION
+
+# Start server
+ENV PORT=4000
+EXPOSE 4000
+ENTRYPOINT node /doc/app/server.js --path /doc/static --port $PORT

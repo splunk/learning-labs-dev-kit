@@ -1,0 +1,66 @@
+{
+    "title":"SDK Testing",
+    "description":"This is for SDK testing",
+    "root":"contents",
+    "app": "app",
+    "resources" : "resources",
+    "tag":"test_doc",
+    "features" : {
+        "login" : {
+            "debug": true
+        },
+        "extraPackages": ["gcc", "make", "g++"],
+        "verify" : {
+            "displayAnswer": true,
+            "redirectUrl": "http://www.google.com",
+            "targets": [
+                {
+                    "name": "target1",
+                    "type": "quiz",
+                    "file": "quiz.yaml"
+                },
+                {
+                    "name": "target2",
+                    "type": "confirm"
+                },
+                {
+                    "name": "target3",
+                    "type": "script",
+                    "file": "sample.js",
+                    "title": "My Custom Title",
+                    "input": [
+                        {
+                            "name":"TEST_VAR",
+                            "desc":"this sets environment variable TEST_VAR"
+                        },
+                        {
+                            "name":"TEST_VAR2",
+                            "desc":"this sets environment variable TEST_VAR2"
+                        }
+                    ]
+                },
+                {
+                    "name": "target4",
+                    "type": "survey",
+                    "file": "survey.yaml"
+                },
+                {
+                    "name": "target5",
+                    "type": "codelab",
+                    "language": "cpp",
+                    "editorHeight": 400,
+                    "files": ["hellofunc.c", "hellomake.h", "Makefile"],
+                    "userInputFile" : "hellomake.c",
+                    "command": "make -f Makefile"
+                }
+            ]
+        },
+        "sidebar" : {
+            "collapsed": true
+        }
+    },
+    "maintainer": [
+        "maintainer-1@example.com",
+        "maintainer-2@example.com"
+    ]
+}

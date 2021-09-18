@@ -1,0 +1,24 @@
+passThreshold: 2 # Defines threshold for pass.
+                 # Default value is the total number of questions.
+questions:
+  - question: This is question 1. Answer is Choice A. # This is a question. Supports Markdown format
+    type: multiple # multiple choices
+    choices:
+      - Choice A # referred as index 0
+      - Choice B # referred as index 1
+      - Choice C # referred as index 2
+      - Choice D # referred as index 3
+    answer: 0 # index 0 is the expected answer
+  - question: This is question 2. Answers are Choice A and Choice C. # This is a question. Supports Markdown format
+    type: multiple # multiple choices
+    choices:
+      - Choice A # referred as index 0
+      - Choice B # referred as index 1
+      - Choice C # referred as index 2
+      - Choice D # referred as index 3
+    answer: # May have an array of answers if multiple answers are accepted.
+      - 0 
+      - 2
+  - question: This is question 3. Answer is abcd. # This is a question. Supports Markdown format
+    type: text # text-based question
+    answer: abcd # abcd is the expected answer

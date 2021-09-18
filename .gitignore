@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+*.db
+*.log
+published_tag
+token.json
+tests/logs
+app/config.json
+gitbook

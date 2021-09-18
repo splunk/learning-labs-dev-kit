@@ -1,0 +1,35 @@
+ARG BASE_IMAGE=localhost/doc-hub/gitbook/builder:latest
+FROM ${BASE_IMAGE}
+
+#--------------------------------------
+# INSTALL NPM DEPENDENCIES
+#--------------------------------------
+
+# Copy package.json
+COPY scripts/*.json /kit/scripts/
+COPY app/*.json /kit/app/
+COPY plugins/gitbook/*.json /kit/plugins/gitbook/
+COPY plugins/gitbook/gitbook-plugin-theme-splunk/*.json \ 
+  /kit/plugins/gitbook/gitbook-plugin-theme-splunk/
+COPY plugins/gitbook/gitbook-plugin-splunk-highlight/*.json \ 
+  /kit/plugins/gitbook/gitbook-plugin-splunk-highlight/
+
+# Build npm dependencies
+RUN echo development > /kit/SDK_VERSION && \
+    cd /kit/app && npm install && \
+    cd /kit/scripts && npm install && \
+    cd /kit/plugins/gitbook/gitbook-plugin-theme-splunk && npm install && \
+    cd /kit/plugins/gitbook/gitbook-plugin-splunk-highlight && npm install && \
+    cd /kit/plugins/gitbook/ && npm install
+
+# Copy dev script
+COPY scripts/dev.js /kit/scripts/dev.js
+
+#--------------------------------------
+# Start Dev Script
+#--------------------------------------
+VOLUME /src
+
+ENV PATH_WORKSHOP=/mount
+
+ENTRYPOINT ["node", "/kit/scripts/dev.js"]

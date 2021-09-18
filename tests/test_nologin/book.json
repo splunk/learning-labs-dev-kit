@@ -1,0 +1,14 @@
+{
+    "title":"SDK Testing - No Login",
+    "description":"Test SDK for feature.login=false",
+    "root":"contents",
+    "app": "app",
+    "tag":"sdk_test_nologin",
+    "features" : {
+        "login" : false
+    },
+    "maintainer": [
+        "maintainer-1@example.com",
+        "maintainer-2@example.com"
+    ]
+}

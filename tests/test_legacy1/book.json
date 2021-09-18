@@ -1,0 +1,15 @@
+{
+    "title":"SDK Testing - Legacy 1",
+    "description":"This is for SDK testing",
+    "root":"contents",
+    "app": "app",
+    "tag":"test_legacy1",
+    "features" : {
+        "login" : true,
+        "verify" : true
+    },
+    "maintainer": [
+        "maintainer-1@example.com",
+        "maintainer-2@example.com"
+    ]
+}

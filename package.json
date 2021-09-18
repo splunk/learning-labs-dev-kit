@@ -1,0 +1,11 @@
+{
+  "name": "doc-hub-kit",
+  "version": "20.1.2",
+  "description": "Workshop SDK",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node npm_scripts/test.js"
+  },
+  "author": "Developers @ Splunk"
+}

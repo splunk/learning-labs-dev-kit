@@ -1,0 +1,19 @@
+ARG NODE_IMAGE=node:10-alpine
+FROM ${NODE_IMAGE}
+
+#--------------------------------------
+# INSTALL NPM DEPENDENCIES
+#--------------------------------------
+RUN npm install -g shelljs
+
+COPY app/*.json /kit/app/
+COPY scripts/*.json /kit/scripts/
+
+RUN cd /kit/app && npm install 
+RUN cd /kit/scripts && npm install 
+
+#--------------------------------------
+# Start Test Script
+#--------------------------------------
+WORKDIR /workspace
+ENTRYPOINT ["shjs", "scripts/test.js", "dev"]

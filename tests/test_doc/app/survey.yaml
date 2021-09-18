@@ -1,0 +1,42 @@
+questions:
+  - question: "This is multiple choices"
+    type: multiple
+    id: question_multiple
+    required: true
+    page: 1 
+    choices:
+    - Choice A
+    - Choice B
+    - Choice C
+    - Choice D
+  - question: "This is checkboxes"
+    type: checkbox
+    id: question_checkbox
+    required: true
+    page: 1 
+    choices:
+    - Choice A
+    - Choice B
+    - Choice C
+    - Choice D
+  - question: |
+      This is text
+    type: text
+    id: question_text
+    page: 2
+  - question: |
+      This is paragraph
+    type: paragraph
+    id: question_paragraph
+    page: 2
+  - question: |
+      This is linear
+    type: linear
+    id: question_linear
+    range:
+      start: 2
+      end: 8
+    labels:
+      left: on left
+      right: on right
+    page: 2

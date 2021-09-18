@@ -1,0 +1,1 @@
+echo "Overwrite build_script.sh in app to set up environment."
