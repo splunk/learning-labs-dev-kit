@@ -7,5 +7,6 @@
   "scripts": {
     "test": "node npm_scripts/test.js"
   },
-  "author": "Developers @ Splunk"
+  "author": "Developers @ Splunk",
+  "license": "Apache 2.0"
 }
