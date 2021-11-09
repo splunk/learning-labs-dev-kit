@@ -1,0 +1,31 @@
+.navbar {
+	padding : 0.5rem;
+	height: $navbar-padding;
+}
+
+.navbar-login #login-name
+{
+	margin-left : 0.25rem;
+}
+
+.nav-link {
+	padding: 0.25rem 1rem;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.navbar-brand {
+	display: flex;
+	align-items: center;
+	padding: 0;
+}
+
+.dropdown-menu {
+	min-width : 7.5rem;
+	padding : 0;
+}
+
+.dropdown-item {
+	font-size: 1rem;
+	padding: 0.25rem 2rem;
+}

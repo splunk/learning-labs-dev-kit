@@ -1,0 +1,24 @@
+{
+    "title" : "Book",
+    "theme" : "splunk",
+    "plugins": [
+    	"hints-istex",
+        "theme-splunk",
+        "splunk-highlight",
+        "-highlight",
+        "-sharing",
+        "-fontsettings",
+        "-theme-default",
+        "-search",
+        "-lunr"
+    ],
+    "pluginsConfig": {
+        "hints": {
+            "info": "fa fa-info-circle",
+            "success": "fa fa-check-circle",
+            "danger": "fa fa-exclamation-triangle",
+            "warning": "fa fa-exclamation-circle"
+        }
+    },
+    "root" : "content"
+}

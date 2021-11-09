@@ -1,0 +1,44 @@
+//  #   Base
+//      Defines styles for basic elements
+
+//	*******************************************************
+// 	## HTML and BODY
+//	*******************************************************
+
+*
+{
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+    -webkit-touch-callout: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body
+{ 
+    height: 100%; 
+    font-size: $book-font-size-base;
+}
+
+body
+{
+    text-rendering: optimizeLegibility;
+    font-smoothing: antialiased;
+    font-family: $font-family-base;
+
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+    font-family: "Proxima-Nova";
+    src: url("./fonts/proxima-nova-regular-webfont.woff");
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Proxima-Nova";
+    src: url("./fonts/proxima-nova-bold-webfont.woff");
+    font-weight: bold;
+}

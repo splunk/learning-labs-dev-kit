@@ -1,0 +1,11 @@
+{
+  "name": "doc-hub-kit-gitbook",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "gitbook-plugin-code": "^0.1.0",
+    "gitbook-plugin-hints-istex": "^1.0.1",
+    "gitbook-plugin-splunk-highlight": "file:gitbook-plugin-splunk-highlight",
+    "gitbook-plugin-theme-splunk": "file:gitbook-plugin-theme-splunk"
+  }
+}

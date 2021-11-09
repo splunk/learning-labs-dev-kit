@@ -1,0 +1,49 @@
+.radio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25px;
+}
+
+.radio input,
+.radio label {
+    display: inline-block;
+    height: 18px;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+
+
+div.linear-scale {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.linear-scale .question {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.linear-scale div.label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.linear-scale div.label.left {
+    text-align: right;
+}
+
+.linear-scale div.label.right {
+    text-align: left;
+}
+
+.linear-scale div.radio {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
